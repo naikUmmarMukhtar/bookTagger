@@ -1,45 +1,60 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        tabBarActiveTintColor: "#e91e63",
+        tabBarInactiveTintColor: "#000",
+        tabBarStyle: {
+          backgroundColor: "#fff",
+          elevation: 0,
+          shadowColor: "transparent",
+        },
+        tabBarLabelStyle: {},
+        tabBarIconStyle: {},
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" color={color} size={size} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="generateQrCode"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Generate QR Code",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="qr-code" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="scanQrCode"
+        options={{
+          title: "Scan QR Code",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="camera" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="history"
+        options={{
+          title: "History",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="time-outline" color={color} size={size} />
+          ),
         }}
       />
     </Tabs>
   );
 }
+
+export default TabsLayout;
